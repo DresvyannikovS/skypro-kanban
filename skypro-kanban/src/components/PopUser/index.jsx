@@ -1,27 +1,20 @@
 import * as S from "./user.styled";
-import { getUserData } from "../../storage";
-import { Link, useSearchParams } from "react-router-dom";
-import { useState } from "react";
-import { PopExit } from "../PopExit/PopExit";
+import { Link } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
+import { useThemeContext } from "../../context/ThemeContext";
 
-export const PopUser = ({ theme, changeTheme }) => {
+export const PopUser = () => {
   
   const { user, updateUser } = useUserContext();
-  const [showModalExit, setShowModalExit] = useState(false);
-
-  const handleOpenModal = () => {
-    setShowModalExit(true);
-  };
+  const { theme, changeTheme } = useThemeContext();
 
   return (
     <>
-      <S.Div
-        theme={theme}
+      <S.Div $theme={theme}
         className="header__pop-user-set pop-user-set"
         id="user-set-target"
       >
-        <S.P>{user.name}</S.P>
+        <S.P $theme={theme}>{user.name}</S.P>
         <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
         <div className="pop-user-set__theme">
           <S.P>Темная тема</S.P>
@@ -32,11 +25,10 @@ export const PopUser = ({ theme, changeTheme }) => {
             name="checkbox"
           />
         </div>
-        <button onClick={handleOpenModal} type="button" className="_hover03">
-          <a>Выйти</a>
+        <button type="button" className="_hover03">
+          <Link to="/exit">Выйти</Link>
         </button>
       </S.Div>
-      {showModalExit && <PopExit />}
     </>
   );
 };

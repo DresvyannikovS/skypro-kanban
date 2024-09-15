@@ -1,6 +1,6 @@
 import { Card } from "../Card";
 
-export const Column = ({ title, tasks, theme }) => {
+export const Column = ({ title, tasks }) => {
   
   return (
     <div className="main__column column">
@@ -9,7 +9,7 @@ export const Column = ({ title, tasks, theme }) => {
       </div>
       <div className="cards">
         {tasks.map((item) => (
-          <Card id={item._id} theme={theme} key={item._id} item={item} />
+          <Card id={item._id} key={item._id} item={item} />
         ))}
       </div>
     </div>

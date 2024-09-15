@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import * as S from "./card.styled";
+import { useThemeContext } from "../../context/ThemeContext";
 
-export const Card = ({ id, item, theme }) => {
+export const Card = ({ id, item }) => {
+  const { theme } = useThemeContext();
+
   return (
     <div className="cards__item">
-      <S.Card
-        theme={theme}
+      <S.Card $theme={theme}
         className="card"
       >
         <div className="card__group">
@@ -22,7 +24,7 @@ export const Card = ({ id, item, theme }) => {
         </div>
         <div className="card__content">
           <Link to={`/task/${id}`}>
-            <S.Title theme={theme}>{item.title}</S.Title>
+            <S.Title $theme={theme}>{item.title}</S.Title>
           </Link>
           <div className="card__date">
             <svg

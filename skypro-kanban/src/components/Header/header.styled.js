@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Header = styled.header`
   width: 100%;
   margin: 0 auto;
-  background-color: ${props => props.theme === "light" ? 'white' : 'rgb(32, 32, 44)'};`
+  background-color: ${ props => props.$theme === "light" ? 'white' : 'rgb(32, 32, 44)'};`
 
 export const Block  = styled.div`
   height: 70px;
@@ -46,4 +46,4 @@ export const Nav = styled.nav`
   justify-content: center;
   font-size: 14px;
   line-height: 20px;
-  color: ${props => props.theme === "light" ? 'blue' : 'white'};`
+  color: ${props => props.$theme === "light" ? 'blue' : 'white'};`

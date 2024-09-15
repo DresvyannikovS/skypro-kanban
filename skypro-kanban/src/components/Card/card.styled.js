@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Card = styled.div`
   width: 220px;
   height: 130px;
-  background-color: ${props => props.theme === "light" ? '#FFFFFF' : 'rgb(32, 32, 44)'};
+  background-color: ${ props => props.$theme === "light" ? '#FFFFFF' : 'rgb(32, 32, 44)'};
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -15,5 +15,5 @@ export const Card = styled.div`
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
-  color: ${props => props.theme === "light" ? '#000000' : 'white'};
+  color: ${ props => props.$theme === "light" ? '#000000' : 'white'};
   margin-bottom: 10px;`

@@ -1,10 +1,12 @@
-import { useState } from "react";
-import { cardList } from "../../data";
+
 import { Column } from "../Column";
 import { Container } from "../General/General.styled";
 import * as S from "../Main/main.styled";
+import { useThemeContext } from "../../context/ThemeContext";
 
-export const Main = ({ tasks, isDarkTheme }) => {
+export const Main = ({ tasks }) => {
+  const { theme } = useThemeContext();
+
   const statusList = [
     "Без статуса",
     "Нужно сделать",
@@ -14,7 +16,7 @@ export const Main = ({ tasks, isDarkTheme }) => {
   ];
 
   return (
-    <S.Main theme={isDarkTheme === "light" ? "light" : "dark"}>
+    <S.Main $theme={theme}>
       <Container>
         <div className="main__block container">
           <div className="main__content">
@@ -22,7 +24,6 @@ export const Main = ({ tasks, isDarkTheme }) => {
               <Column
                 key={title}
                 title={title}
-                theme={isDarkTheme === "light" ? "light" : "dark"}
                 tasks={tasks.filter((item) => item.status === title)}
               />
             ))}

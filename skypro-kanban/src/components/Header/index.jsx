@@ -1,14 +1,17 @@
 import { useState } from "react";
 import { PopUser } from "../PopUser";
-import * as S from "./header.styled";
 import { Container } from "../General/General.styled";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../context/UserContext";
+import * as S from "./header.styled";
+import { useThemeContext } from "../../context/ThemeContext";
 
 let i = 7;
 
-export const Header = ({ changeTheme, isDarkTheme }) => {
+export const Header = () => {
+  
   const { user, updateUser } = useUserContext();
+  const { theme, changeTheme } = useThemeContext();
 
   const [isOpenUser, setIsOpenUser] = useState(false);
   
@@ -17,7 +20,7 @@ export const Header = ({ changeTheme, isDarkTheme }) => {
   };
 
   return (
-    <S.Header theme={isDarkTheme}>
+    <S.Header $theme={theme}>
       <Container>
         <S.Block>
           <div className="header__logo _show _light">
@@ -37,15 +40,14 @@ export const Header = ({ changeTheme, isDarkTheme }) => {
             >
               <Link to="/newTask">Создать новую задачу</Link>
             </S.ButtonMain>
-            <S.User
-              theme={isDarkTheme}
+            <S.User $theme={theme}
               href="#"
               className="header__user _hover02"
               onClick={handleClickOpenUser}
             >
               {user.name}
             </S.User>
-            {isOpenUser && <PopUser theme={isDarkTheme} changeTheme={changeTheme} />}
+            {isOpenUser && <PopUser />}
           </S.Nav>
         </S.Block>
       </Container>

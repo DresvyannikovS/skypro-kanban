@@ -18,6 +18,8 @@ import { UserContext } from "./context/UserContext";
 import { TaskContext } from "./context/TaskContext";
 import { GetTasks } from "./api";
 import { NewTaskProfile } from "./pages/NewTask";
+import { ExitModal } from "./pages/ExitModal";
+import { ThemeContext } from "styled-components";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -25,6 +27,12 @@ function App() {
   const [user, setUser] = useState(null);
   const [taskList, setTaskList] = useState([]);
   const [isLoadingTasks, setIsLoadingTasks] = useState("false");
+  const [theme, setTheme] = useState("light");
+
+  const changeTheme = () => {
+    theme === null ? setTheme("light"): "";
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  };
 
   const updateTasks = (tasks) => {
     setTaskList(tasks);
@@ -73,16 +81,19 @@ function App() {
   return (
     <UserContext.Provider value={{ user, updateUser }}>
       <TaskContext.Provider value={{ taskList, isLoadingTasks, updateTasks }}>
-        <Routes>
-          <Route path="/" element={<PrivateRoute isAuth={isAuth} />}>
-            <Route index element={<Desk />} />
-            <Route path="task/:id" element={<TaskProfile />} />
-            <Route path="newTask" element={<NewTaskProfile />} />
-          </Route>
+        <ThemeContext.Provider value={{ theme, changeTheme }}>
+          <Routes>
+            <Route path="/" element={<PrivateRoute isAuth={isAuth} />}>
+              <Route index element={<Desk />} />
+              <Route path="task/:id" element={<TaskProfile />} />
+              <Route path="newTask" element={<NewTaskProfile />} />
+              <Route path="exit" element={<ExitModal />} />
+            </Route>
 
-          <Route path="/signin" element={<SignIn setIsAuth={setIsAuth} />} />
-          <Route path="/signup" element={<SignUp setIsAuth={setIsAuth} />} />
-        </Routes>
+            <Route path="/signin" element={<SignIn setIsAuth={setIsAuth} />} />
+            <Route path="/signup" element={<SignUp setIsAuth={setIsAuth} />} />
+          </Routes>
+        </ThemeContext.Provider>
       </TaskContext.Provider>
     </UserContext.Provider>
   );
