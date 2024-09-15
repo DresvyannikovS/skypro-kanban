@@ -19,7 +19,7 @@ import { TaskContext } from "./context/TaskContext";
 import { GetTasks } from "./api";
 import { NewTaskProfile } from "./pages/NewTask";
 import { ExitModal } from "./pages/ExitModal";
-import { ThemeContext } from "styled-components";
+import { ThemeContext } from "./context/ThemeContext";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
@@ -38,20 +38,20 @@ function App() {
     setTaskList(tasks);
   };
 
-  useEffect(() => {
-    setIsLoadingTasks(true);
-    try {
-      GetTasks()
-        .then((answer) => {
-          setTaskList(answer.tasks);
-        })
-        .then(() => {
-          setIsLoadingTasks(false);
-        });
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
+  // useEffect(() => {
+  //   setIsLoadingTasks(true);
+  //   try {
+  //     GetTasks()
+  //       .then((answer) => {
+  //         setTaskList(answer.tasks);
+  //       })
+  //       .then(() => {
+  //         setIsLoadingTasks(false);
+  //       });
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }, []);
 
   const updateUser = (newUser) => {
     setUser(newUser);
@@ -80,7 +80,7 @@ function App() {
 
   return (
     <UserContext.Provider value={{ user, updateUser }}>
-      <TaskContext.Provider value={{ taskList, isLoadingTasks, updateTasks }}>
+      <TaskContext.Provider value={{ taskList, isLoadingTasks, setIsLoadingTasks, updateTasks }}>
         <ThemeContext.Provider value={{ theme, changeTheme }}>
           <Routes>
             <Route path="/" element={<PrivateRoute isAuth={isAuth} />}>
