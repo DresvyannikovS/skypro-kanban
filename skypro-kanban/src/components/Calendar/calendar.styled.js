@@ -2,6 +2,7 @@ import { DayPicker } from "react-day-picker";
 import styled from "styled-components";
 
 export const StyledDayPicker = styled(DayPicker)`
+color: ${(props) => (props.$theme === "light" ? "#000" : "white")};
 margin-left: 15px;
   --rdp-font-family: Roboto;
   --rdp-day-height: 1.75rem;

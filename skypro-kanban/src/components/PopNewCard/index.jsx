@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
+import * as S from "./NewCard.styled";
 import { Calendar, MyDatePicker } from "../Calendar";
 import { addTask } from "../../api";
-import { tr } from "date-fns/locale";
 import { useTaskContext } from "../../context/TaskContext";
 import { useNavigate } from "react-router-dom";
+import { useThemeContext } from "../../context/ThemeContext";
 
 export const PopNewCard = () => {
-    let navigate = useNavigate();
+  let navigate = useNavigate();
 
-    const { updateTasks } = useTaskContext()
+  const { updateTasks } = useTaskContext();
+  const { theme } = useThemeContext();
 
   const formFields = {
     title: "",
@@ -59,9 +61,9 @@ export const PopNewCard = () => {
   return (
     <div className="pop-new-card" id="popNewCard">
       <div className="pop-new-card__container">
-        <div className="pop-new-card__block">
+        <S.NewCardBlock $theme={theme}>
           <div className="pop-new-card__content">
-            <h3 className="pop-new-card__ttl">Создание задачи</h3>
+            <S.Title $theme={theme}>Создание задачи</S.Title>
             <a onClick={handleClose} className="pop-new-card__close">
               &#10006;
             </a>
@@ -73,10 +75,9 @@ export const PopNewCard = () => {
                 action="#"
               >
                 <div className="form-new__block">
-                  <label for="formTitle" className="subttl">
-                    Название задачи
-                  </label>
-                  <input
+                  <S.Subttl $theme={theme}>Название задачи</S.Subttl>
+                  <S.Input
+                    $theme={theme}
                     onChange={handleInputChange}
                     className="form-new__input"
                     type="text"
@@ -87,23 +88,24 @@ export const PopNewCard = () => {
                   />
                 </div>
                 <div className="form-new__block">
-                  <label for="textArea" className="subttl">
-                    Описание задачи
-                  </label>
-                  <textarea
+                  <S.Subttl $theme={theme}>Описание задачи</S.Subttl>
+                  <S.Textarea
+                    $theme={theme}
                     onChange={handleInputChange}
                     className="form-new__area"
                     name="description"
                     id="textArea"
                     placeholder="Введите описание задачи..."
-                  ></textarea>
+                  ></S.Textarea>
                 </div>
               </form>
 
               <MyDatePicker selected={selected} setSelected={setSelected} />
             </div>
             <div className="pop-new-card__categories categories">
-              <p className="categories__p subttl">Категория</p>
+              <S.Subttl $theme={theme} className="categories__p">
+                Категория
+              </S.Subttl>
               <div className="categories__themes">
                 <div className="categories__theme _orange _active-category">
                   <p className="_orange">Web Design</p>
@@ -124,7 +126,7 @@ export const PopNewCard = () => {
               Создать задачу
             </button>
           </div>
-        </div>
+        </S.NewCardBlock>
       </div>
     </div>
   );
