@@ -1,18 +1,24 @@
 import { Link } from "react-router-dom";
 import * as S from "./card.styled";
 import { useThemeContext } from "../../context/ThemeContext";
+import { categories } from "../../data";
+import { parseISO, parseJSON } from "date-fns";
 
 export const Card = ({ id, item }) => {
   const { theme } = useThemeContext();
 
+  const getClassForTopic = () => {
+    let obj = categories.filter((obj) => obj.topic === item.topic);
+
+    return obj[0].class;
+  };
+
   return (
     <div className="cards__item">
-      <S.Card $theme={theme}
-        className="card"
-      >
+      <S.Card $theme={theme} className="card">
         <div className="card__group">
-          <div className="card__theme _orange">
-            <p className="_orange">{item.topic}</p>
+          <div className={`card__theme ${getClassForTopic()}`}>
+            <p className={getClassForTopic()}>{item.topic}</p>
           </div>
           <a href="#" target="_self">
             <div className="card__btn">
@@ -55,7 +61,13 @@ export const Card = ({ id, item }) => {
                 </clipPath>
               </defs>
             </svg>
-            <p>30.10.23</p>
+            <p>
+              {parseJSON(item.date).toLocaleDateString("ru-RU", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+              })}
+            </p>
           </div>
         </div>
       </S.Card>

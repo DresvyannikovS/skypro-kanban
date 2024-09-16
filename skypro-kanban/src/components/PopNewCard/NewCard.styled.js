@@ -1,5 +1,30 @@
 import styled from "styled-components";
 
+export const NewCardContaner = styled.div`
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) =>
+    props.$theme === "light" ? "rgb(229, 229, 229)" : "rgb(21, 20, 25)"};
+`;
+
+export const CardContainer = styled.div`
+  display: block;
+  margin: 0 auto;
+  background-color: ${(props) =>
+    props.$theme === "light" ? "#FFFFFF" : "rgb(32, 32, 44)"};
+  max-width: 630px;
+  width: 100%;
+  padding: 40px 30px 38px;
+  border-radius: 10px;
+  border: 0.7px solid #D4DBE5;
+  position: relative;`
+
 export const NewCardBlock = styled.div`
   display: block;
   margin: 0 auto;

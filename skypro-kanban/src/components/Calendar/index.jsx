@@ -1,8 +1,7 @@
 import { DayPicker } from "react-day-picker";
 import { useEffect, useState } from "react";
 import { ru } from "date-fns/locale";
-import * as S from "./calendar.styled";
-import { useTheme } from "styled-components";
+import { GlobalStyleDP } from "./calendar.styled";
 import { useThemeContext } from "../../context/ThemeContext";
 
 export function MyDatePicker({ selected, setSelected }) {
@@ -16,7 +15,8 @@ export function MyDatePicker({ selected, setSelected }) {
   return (
     <>
       {/* <h2>Даты</h2> */}
-      <S.StyledDayPicker $theme={theme}
+      <GlobalStyleDP $theme={theme}/>
+      <DayPicker
         mode="single"
         selected={selected}
         onSelect={setSelected}

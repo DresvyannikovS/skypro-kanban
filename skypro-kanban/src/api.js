@@ -50,6 +50,41 @@ export async function addTask(body) {
   });
 }
 
+export async function editTask(body) {
+  const token = getUserToken();
+
+  return await fetch(`https://wedev-api.sky.pro/api/kanban/${body._id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+    method: "PUT",
+    body: JSON.stringify(body),
+  }).then(async (response) => {
+    const responseToJson = await response.json();
+    if (response.status === 201) {
+      return responseToJson;
+    } else {
+      alert(error.message);
+      throw new error("server's error");
+    }
+  });
+}
+
+export async function deleteTask(id) {
+  const token = getUserToken();
+
+  return await fetch(`https://wedev-api.sky.pro/api/kanban/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+    method: "DELETE",
+  }).then(async (response) => {
+    const responseToJson = await response.json();
+    if (response.status === 201) {
+      return responseToJson;
+    } else {
+      alert(error.message);
+      throw new error("server's error");
+    }
+  });
+}
+
 export async function loginAPI(body) {
   return await fetch("https://wedev-api.sky.pro/api/user/login", {
     method: "POST",

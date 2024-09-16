@@ -5,8 +5,10 @@ import { addTask } from "../../api";
 import { useTaskContext } from "../../context/TaskContext";
 import { useNavigate } from "react-router-dom";
 import { useThemeContext } from "../../context/ThemeContext";
+import { categories } from "../../data";
 
 export const PopNewCard = () => {
+
   let navigate = useNavigate();
 
   const { updateTasks } = useTaskContext();
@@ -14,7 +16,7 @@ export const PopNewCard = () => {
 
   const formFields = {
     title: "",
-    topic: "Research",
+    topic: "Web design",
     status: "В работе",
     description: "",
     date: "",
@@ -58,9 +60,22 @@ export const PopNewCard = () => {
     }
   };
 
+  //изменение категорий
+
+
+  const [activeCategory, setActiveCategory] = useState("Web Design");
+
+  const handleSetActiveCategory = (e) => {
+    setActiveCategory(e.target.dataset.topic);
+    setFormData({
+      ...formData,
+      ["topic"]: e.target.dataset.topic,
+    });
+  };
+
   return (
     <div className="pop-new-card" id="popNewCard">
-      <div className="pop-new-card__container">
+      <S.NewCardContaner $theme={theme}>
         <S.NewCardBlock $theme={theme}>
           <div className="pop-new-card__content">
             <S.Title $theme={theme}>Создание задачи</S.Title>
@@ -107,15 +122,21 @@ export const PopNewCard = () => {
                 Категория
               </S.Subttl>
               <div className="categories__themes">
-                <div className="categories__theme _orange _active-category">
-                  <p className="_orange">Web Design</p>
-                </div>
-                <div className="categories__theme _green">
-                  <p className="_green">Research</p>
-                </div>
-                <div className="categories__theme _purple">
-                  <p className="_purple">Copywriting</p>
-                </div>
+                {categories.map((cat) => (
+                  <div
+                    onClick={handleSetActiveCategory}
+                    key={cat.topic}
+                    className={
+                      activeCategory === cat.topic
+                        ? `categories__theme ${cat.class} _active-category`
+                        : `categories__theme ${cat.class}`
+                    }
+                  >
+                    <p data-topic={cat.topic} className={cat.class}>
+                      {cat.topic}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
             <button
@@ -127,7 +148,7 @@ export const PopNewCard = () => {
             </button>
           </div>
         </S.NewCardBlock>
-      </div>
+      </S.NewCardContaner>
     </div>
   );
 };

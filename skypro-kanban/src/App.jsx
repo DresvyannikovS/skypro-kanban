@@ -38,21 +38,6 @@ function App() {
     setTaskList(tasks);
   };
 
-  // useEffect(() => {
-  //   setIsLoadingTasks(true);
-  //   try {
-  //     GetTasks()
-  //       .then((answer) => {
-  //         setTaskList(answer.tasks);
-  //       })
-  //       .then(() => {
-  //         setIsLoadingTasks(false);
-  //       });
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }, []);
-
   const updateUser = (newUser) => {
     setUser(newUser);
   };
